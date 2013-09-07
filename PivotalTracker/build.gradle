@@ -1,0 +1,64 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.5.+'
+        classpath 'com.squareup.gradle:gradle-android-test-plugin:0.9.+'
+    }
+}
+apply plugin: 'android'
+apply plugin: 'android-test'
+
+repositories {
+    mavenCentral()
+}
+
+android {
+    compileSdkVersion 18
+    buildToolsVersion "18.0.1"
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 18
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file("../scripts/debug.keystore")
+        }
+
+        release {
+            storeFile file("../scripts/debug.keystore")
+//            keyAlias ""
+//            storePassword ""
+//            keyPassword ""
+        }
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            signingConfig signingConfigs.debug
+        }
+
+        release {
+            debuggable true
+            signingConfig signingConfigs.release
+        }
+    }
+}
+
+dependencies {
+    compile 'com.squareup.dagger:dagger:1.0.1'
+    compile 'com.squareup.dagger:dagger-compiler:1.0.1'
+    compile 'javax.inject:javax.inject:1'
+    compile 'com.google.code.gson:gson:2.2.4'
+    compile 'com.jakewharton:butterknife:2.0.1'
+    compile 'com.squareup.okhttp:okhttp:1.1.1'
+    compile 'com.squareup.picasso:picasso:2.0.0'
+    compile 'com.google.guava:guava:14.0.1'
+
+    instrumentTestCompile 'com.jayway.android.robotium:robotium-solo:4.2'
+    instrumentTestCompile 'com.squareup.spoon:spoon-client:1.0.5'
+}
